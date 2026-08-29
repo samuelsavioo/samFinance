@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "C:\\Users\\samue\\.gradle\\daemon\\8.13\\com.example.samfinance.app-debug-50:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\samue\\.gradle\\daemon\\8.13\\com.example.samfinance.app-main-52:\\mipmap-anydpi-v26\\ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Users\\samue\\.gradle\\daemon\\8.13\\com.example.samfinance.app-debug-50:\\drawable_ic_launcher_background.xml.flat",
+        "source": "C:\\Users\\samue\\.gradle\\daemon\\8.13\\com.example.samfinance.app-main-52:\\drawable\\ic_launcher_background.xml"
+    },
+    {
+        "merged": "com.example.samfinance.app-debug-50:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.example.samfinance.app-main-52:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Users\\samue\\.gradle\\daemon\\8.13\\com.example.samfinance.app-debug-50:\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\samue\\.gradle\\daemon\\8.13\\com.example.samfinance.app-main-52:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.example.samfinance.app-debug-50:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.example.samfinance.app-main-52:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "C:\\Users\\samue\\.gradle\\daemon\\8.13\\com.example.samfinance.app-debug-50:\\drawable_ic_launcher_foreground.xml.flat",
+        "source": "C:\\Users\\samue\\.gradle\\daemon\\8.13\\com.example.samfinance.app-main-52:\\drawable\\ic_launcher_foreground.xml"
+    }
+]
