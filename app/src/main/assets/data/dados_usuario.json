@@ -1,0 +1,8 @@
+{
+  "renda_mensal": 2000.0,
+  "moradia": "Alugada",
+  "gastos_fixos": 1200.0,
+  "gastos_variaveis": 500.0,
+  "dividas": 3000.0,
+  "possui_veiculo": true
+}

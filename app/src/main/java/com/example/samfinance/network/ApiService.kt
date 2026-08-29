@@ -13,8 +13,22 @@ data class UserProfile(
     val income: Double,
     val housing_type: String,
     val expenses_fixed: Double,
-    val expenses_variable: Double
-)
+    val expenses_variable: Double,
+    val debts: Double,
+    val has_vehicle: Boolean
+) {
+    fun classify(): String {
+        val totalExpenses = expenses_fixed + expenses_variable
+        return when {
+            debts > 0 || totalExpenses > income -> "Endividado"
+            income > totalExpenses && debts == 0.0 -> {
+                if (income - totalExpenses > income * 0.2) "Pronto para investir"
+                else "Estável"
+            }
+            else -> "Estável"
+        }
+    }
+}
 
 interface ApiService {
     @GET("/users")

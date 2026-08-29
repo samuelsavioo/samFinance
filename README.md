@@ -1,172 +1,69 @@
-# 💰 SamFinance API
+# 💰 SamFinance - Assistente Financeiro Inteligente
 
-API REST para gerenciamento de finanças pessoais.
-
-O **SamFinance** é uma aplicação backend desenvolvida com Node.js e MySQL que permite o cadastro e gerenciamento de:
-
-- 👤 Usuários  
-- 📂 Categorias (receitas e despesas)  
-- 💳 Transações financeiras  
-
-Projeto criado com foco em aprendizado de APIs RESTful e integração com banco relacional.
+**SamFinance** é um aplicativo Android nativo projetado para ajudar usuários a saírem do zero na organização financeira, quitarem dívidas e construírem sua primeira reserva de emergência. Através de um consultor financeiro movido por IA, o app oferece orientações personalizadas baseadas no perfil real do usuário.
 
 ---
 
-# 🚀 Tecnologias Utilizadas
+## 🤖 IA Consciente e Responsável
 
-- Node.js
-- Express
-- MySQL
-- mysql2
-- Nodemon (ambiente de desenvolvimento)
+Este projeto foi construído com o **auxílio de Inteligência Artificial de forma consciente e responsável**. Acreditamos que a transparência é fundamental na nova realidade do desenvolvimento de software. A IA foi utilizada para acelerar a implementação de funcionalidades complexas, garantir boas práticas de código e integrar modelos avançados de linguagem, sempre sob a supervisão humana para garantir a ética e a precisão das informações financeiras fornecidas.
 
 ---
 
-# 📂 Estrutura Atual do Projeto
+## 🚀 Principais Funcionalidades
 
-samFinance/
-
-├── index.js       # Arquivo principal da aplicação  
-├── db.js          # Configuração do pool de conexões MySQL  
-├── package.json  
-└── README.md  
-
----
-
-# ⚙️ Configuração do Banco de Dados
-
-Banco utilizado: **MySQL**
-
-Nome do banco:
-sam_finance
-
-Tabelas necessárias:
-
-- users
-- categories
-- transactions
+- **🤖 Consultor SamFinance**: Chat inteligente integrado com o **Gemini 1.5 Flash** que atua como um educador financeiro acolhedor.
+- **📊 Perfil Financeiro**: Formulário detalhado para coleta de renda, gastos (fixos/variáveis), dívidas e bens.
+- **🎯 Classificação de Perfil**: Lógica determinística que classifica o usuário como *Endividado*, *Estável* ou *Pronto para Investir*.
+- **💾 Persistência de Dados**: 
+    - **Room Database**: Histórico de conversas salvo localmente para manter o contexto.
+    - **DataStore**: Armazenamento seguro de preferências e estado de login.
+- **🔐 Segurança**: Proteção de chaves de API via `local.properties` e `BuildConfig`.
 
 ---
 
-# ▶️ Como Rodar o Projeto
+## 📂 Estrutura do Projeto
 
-## 1️⃣ Clonar o repositório
+O projeto é um aplicativo Android moderno escrito em **Kotlin** com **Jetpack Compose**:
 
-```bash
-git clone https://github.com/samuelsavioo/samFinance.git
-cd samFinance
-```
-
-## 2️⃣ Instalar dependências
-
-```bash
-npm install
-```
-
-## 3️⃣ Configurar banco de dados
-
-No arquivo `db.js`, configure suas credenciais:
-
-```js
-host: 'localhost',
-user: 'root',
-password: 'SUA_SENHA',
-database: 'sam_finance'
-```
-
-⚠️ Recomendado: utilizar variáveis de ambiente (.env).
-
-## 4️⃣ Executar o servidor
-
-```bash
-npm run dev
-```
-
-Servidor rodando em:
-
-http://localhost:3000
+- `app/src/main/java/com/example/samfinance/ai`: Lógica de integração com o Google AI SDK.
+- `app/src/main/java/com/example/samfinance/data`: Camada de dados (Room e DataStore).
+- `app/src/main/java/com/example/samfinance/ui`: Interface declarativa com Compose (Screens e Temas).
+- `app/src/main/java/com/example/samfinance/network`: Modelos de dados e integração com API REST.
 
 ---
 
-# 📌 Endpoints Disponíveis
+## 🛠️ Tecnologias Utilizadas
 
-## 👤 Usuários
-
-GET    /users  
-POST   /users  
-DELETE /users/:id  
-
-### Exemplo JSON
-
-```json
-{
-  "name": "Samuel",
-  "email": "samuel@email.com",
-  "password": "123456"
-}
-```
+- **Linguagem**: Kotlin
+- **UI**: Jetpack Compose
+- **IA**: Google AI SDK (Gemini API)
+- **Banco de Dados**: Room
+- **Persistência de Preferências**: Jetpack DataStore
+- **Networking**: Retrofit & Gson
+- **Injeção de Dependência**: (Próximo passo: Hilt/Koin)
+- **Gerenciamento de Versão**: Git
 
 ---
 
-## 📂 Categorias
+## ▶️ Como Rodar o Projeto
 
-GET    /categories  
-POST   /categories  
-DELETE /categories/:id  
-
-### Exemplo JSON
-
-```json
-{
-  "users_id": 1,
-  "name": "Alimentação",
-  "type": "expense"
-}
-```
+1. **Obter uma API Key**: Consiga sua chave no [Google AI Studio](https://aistudio.google.com/).
+2. **Configurar a Chave**: No arquivo `local.properties` na raiz do projeto, adicione:
+   ```properties
+   SAM_FINANCE_API_KEY=SUA_CHAVE_AQUI
+   ```
+3. **Build**: Sincronize o Gradle e execute o app em um emulador ou dispositivo físico com API 24+.
 
 ---
 
-## 💳 Transações
+## 🎯 Objetivo e Filosofia
 
-GET    /transactions  
-POST   /transactions  
-DELETE /transactions/:id  
-
-### Exemplo JSON
-
-```json
-{
-  "users_id": 1,
-  "category_id": 2,
-  "description": "Supermercado",
-  "amount": 150.75,
-  "date": "2026-02-19"
-}
-```
+O SamFinance não é apenas um gerenciador de gastos, mas um **educador**. O foco é remover a barreira de entrada para quem não tem organização financeira, usando uma linguagem acessível e evitando jargões complexos, sempre priorizando a segurança dos dados do usuário.
 
 ---
 
-# 🎯 Objetivos do Projeto
-
-- Construção de API REST
-- CRUD completo com MySQL
-- Uso de pool de conexões
-- Evolução futura para arquitetura em camadas
-
----
-
-# 🔮 Próximas Melhorias
-
-- Hash de senha com bcrypt
-- Autenticação JWT
-- Separação em Controllers / Services
-- Uso de variáveis de ambiente
-- Docker
-- Testes automatizados
-
----
-
-# 📌 Autor
+## 📌 Autor
 
 Samuel Sávio  
-Desenvolvedor Backend em evolução 🚀
+Desenvolvedor Android em evolução, explorando as fronteiras entre Mobile e IA. 🚀

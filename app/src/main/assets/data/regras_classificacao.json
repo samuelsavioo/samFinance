@@ -1,0 +1,16 @@
+{
+  "regras": [
+    {
+      "perfil": "Endividado",
+      "criterio": "dividas > 0 OU gastos_totais > renda"
+    },
+    {
+      "perfil": "Estável",
+      "criterio": "gastos_totais < renda E dividas == 0 E sobra < 20% da renda"
+    },
+    {
+      "perfil": "Pronto para investir",
+      "criterio": "gastos_totais < renda E dividas == 0 E sobra >= 20% da renda"
+    }
+  ]
+}

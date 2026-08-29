@@ -6,13 +6,16 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.samfinance.data.SessionManager
 import com.example.samfinance.ui.screens.*
 import com.example.samfinance.ui.theme.SamFinanceTheme
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,12 +35,26 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun AppNavigation() {
+    val context = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
+    val sessionManager = remember { SessionManager(context) }
+    val isLoggedInState = sessionManager.isLoggedIn.collectAsState(initial = null)
+    val isLoggedIn = isLoggedInState.value
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = "login") {
+    if (isLoggedIn == null) return // Wait for DataStore
+
+    val startDestination = if (isLoggedIn) "chat" else "login"
+
+    NavHost(navController = navController, startDestination = startDestination) {
         composable("login") {
             LoginScreen(
-                onLoginSuccess = { navController.navigate("profile") },
+                onLoginSuccess = { 
+                    coroutineScope.launch { sessionManager.setLoggedIn(true) }
+                    navController.navigate("profile") {
+                        popUpTo("login") { inclusive = true }
+                    }
+                },
                 onNavigateToRegister = { navController.navigate("register") }
             )
         }
@@ -49,7 +66,11 @@ fun AppNavigation() {
         }
         composable("profile") {
             ProfileScreen(
-                onSaveSuccess = { navController.navigate("chat") }
+                onSaveSuccess = { 
+                    navController.navigate("chat") {
+                        popUpTo("profile") { inclusive = true }
+                    }
+                }
             )
         }
         composable("chat") {
