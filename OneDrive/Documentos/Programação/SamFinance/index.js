@@ -156,3 +156,34 @@ app.delete('/transactions/:id', async (req, res) => {
         res.status(500).send('Erro ao deletar transação');
     }
 });
+
+// --- NOVAS ROTAS PARA PERFIL ---
+
+app.post('/profiles', async (req, res) => {
+    const { user_id, income, housing_type, expenses_fixed, expenses_variable } = req.body;
+
+    try {
+        const query = 'INSERT INTO profiles (user_id, income, housing_type, expenses_fixed, expenses_variable) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE income=?, housing_type=?, expenses_fixed=?, expenses_variable=?';
+        await db.query(query, [user_id, income, housing_type, expenses_fixed, expenses_variable, income, housing_type, expenses_fixed, expenses_variable]);
+
+        res.status(201).json({ message: 'Perfil atualizado com sucesso!' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Erro ao salvar perfil!');
+    }
+});
+
+app.get('/profiles/:userId', async (req, res) => {
+    const { userId } = req.params;
+
+    try {
+        const [rows] = await db.query('SELECT * FROM profiles WHERE user_id = ?', [userId]);
+        if (rows.length === 0) {
+            return res.status(404).send('Perfil não encontrado');
+        }
+        res.json(rows[0]);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Erro ao buscar perfil');
+    }
+});
