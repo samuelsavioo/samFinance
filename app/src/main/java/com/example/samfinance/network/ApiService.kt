@@ -8,14 +8,27 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 data class User(val id: Int?, val name: String, val email: String)
+
+data class TransactionItem(
+    val id: String = java.util.UUID.randomUUID().toString(),
+    val title: String,
+    val category: String,
+    val amount: Double,
+    val isIncome: Boolean,
+    val date: String = "Hoje"
+)
+
 data class UserProfile(
-    val user_id: Int,
-    val income: Double,
-    val housing_type: String,
-    val expenses_fixed: Double,
-    val expenses_variable: Double,
-    val debts: Double,
-    val has_vehicle: Boolean
+    val user_id: Int = 1,
+    val income: Double = 0.0,
+    val housing_type: String = "Própria",
+    val vehicle_type: String = "Nenhum",
+    val dependents: Int = 0,
+    val primary_goal: String = "Reserva de Emergência",
+    val expenses_fixed: Double = 0.0,
+    val expenses_variable: Double = 0.0,
+    val debts: Double = 0.0,
+    val has_vehicle: Boolean = vehicle_type != "Nenhum"
 ) {
     fun classify(): String {
         val totalExpenses = expenses_fixed + expenses_variable
@@ -41,7 +54,7 @@ interface ApiService {
     suspend fun getProfile(@Path("userId") userId: Int): UserProfile
 
     companion object {
-        private const val BASE_URL = "http://10.0.2.2:3000/" // IP padrão para localhost no emulador Android
+        private const val BASE_URL = "http://10.0.2.2:3000/"
 
         fun create(): ApiService {
             return Retrofit.Builder()

@@ -44,14 +44,14 @@ fun AppNavigation() {
 
     if (isLoggedIn == null) return // Wait for DataStore
 
-    val startDestination = if (isLoggedIn) "chat" else "login"
+    val startDestination = if (isLoggedIn) "main" else "login"
 
     NavHost(navController = navController, startDestination = startDestination) {
         composable("login") {
             LoginScreen(
-                onLoginSuccess = { 
-                    coroutineScope.launch { sessionManager.setLoggedIn(true) }
-                    navController.navigate("profile") {
+                onLoginSuccess = { token ->
+                    coroutineScope.launch { sessionManager.saveSession(loggedIn = true, token = token) }
+                    navController.navigate("main") {
                         popUpTo("login") { inclusive = true }
                     }
                 },
@@ -64,17 +64,15 @@ fun AppNavigation() {
                 onNavigateToLogin = { navController.navigate("login") }
             )
         }
-        composable("profile") {
-            ProfileScreen(
-                onSaveSuccess = { 
-                    navController.navigate("chat") {
-                        popUpTo("profile") { inclusive = true }
+        composable("main") {
+            MainScreen(
+                onLogout = {
+                    coroutineScope.launch { sessionManager.logout() }
+                    navController.navigate("login") {
+                        popUpTo("main") { inclusive = true }
                     }
                 }
             )
-        }
-        composable("chat") {
-            ChatScreen()
         }
     }
 }

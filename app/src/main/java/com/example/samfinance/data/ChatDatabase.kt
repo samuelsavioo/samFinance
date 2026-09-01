@@ -14,6 +14,9 @@ interface MessageDao {
 
     @Query("DELETE FROM messages")
     suspend fun clearChat()
+
+    @Query("DELETE FROM messages WHERE text LIKE 'Desculpe%' OR text LIKE 'Unexpected Response%' OR text LIKE 'Erro%'")
+    suspend fun deleteErrorMessages()
 }
 
 @Database(entities = [MessageEntity::class], version = 1)
